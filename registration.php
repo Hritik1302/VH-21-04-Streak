@@ -1,25 +1,3 @@
-<?php
-require_once 'php/db_con.php';
-if (isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $pass = $_POST['pass'];
-    $delete = 1;
-
-    $stmt = $conn->prepare("INSERT INTO `masters_users` (`Email_Id`, `Password`,`Is_Delete`) VALUES (?,?,?)");
-    $stmt->bind_param("ssd", $email, $pass, $delete);
-    $stmt->execute();
-    $stmt->close();
-
-    // if ($stmt == TRUE) {
-    //     header('location:dashboard.php');
-    //     $activeUserId = mysqli_insert_id($conn);
-    //     $_SESSION['activeUserId'] = $activeUserId;
-    // }
-    //header('location:index.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,12 +7,10 @@ if (isset($_POST['register'])) {
     <title>VH-21-04-Streak | Registration</title>
 
     <link rel="shortcut icon" href="assets/img/favicon.png">
-
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -73,12 +49,41 @@ if (isset($_POST['register'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-control-label">Password</label>
-                                    <input class="form-control" type="password" name="pass" required>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Monthly Income</label>
+                                            <input class="form-control" type="number" min="0" step="1" name="monthly_income" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Currency</label>
+                                            <select class="form-control" name="currency" required>
+                                                <option selected="selected" value="INR">INR</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EURO">EURO</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-0">
-                                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="register">Register</button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Password</label>
+                                            <input class="form-control" type="password" id="pass" name="pass" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Confirm Password</label>
+                                            <input class="form-control" type="password" id="cpass" name="cpass" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pass_error" class="d-none form-text text-danger">Password does not Match.</div>
+                                <div class="form-group mb-0 text-center">
+                                    <button class="btn btn-lg btn-primary" type="submit" id="register" name="register">Register</button>
                                 </div>
                             </form>
                             <div class="text-center dont-have">Already have an account? <a href="index.php">Login</a></div>
@@ -91,10 +96,43 @@ if (isset($_POST['register'])) {
 
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
-
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/script.js"></script>
+
+    <script>
+        let logic = false;
+
+        $('#cpass').on('input', function() {
+            let password = $('#pass').val();
+            logic = ($(this).val() === password) ? true : false;
+            if (!logic) {
+                $('#pass_error').removeClass('d-none');
+            } else {
+                $('#pass_error').addClass('d-none');
+            }
+        })
+
+        $("#register").on('click', function(e) {
+
+            e.preventDefault();
+            if (logic) {
+                var form = $('form');
+                var url = 'php/ajax/register.php';
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(data) {
+                        console.log(data);
+                        console.table(data); // show response from the php script.
+                    }
+                });
+            }
+        });
+    </script>
+
 </body>
 
 </html>

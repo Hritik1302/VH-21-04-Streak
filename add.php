@@ -108,8 +108,8 @@
                             <span class="status online"></span></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html"><i class="feather-user"></i> My Profile</a>
-                        <a class="dropdown-item" href="login.html"><i class="feather-power"></i> Logout</a>
+                        <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
+                        <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
                     </div>
                 </li>
             </ul>

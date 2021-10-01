@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Bill Managment</title>
+    <title>VH-21-04-Streak | Bill Managment</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
@@ -35,8 +35,8 @@
                             <span class="status online"></span></span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html"><i class="feather-user"></i> My Profile</a>
-                        <a class="dropdown-item" href="login.html"><i class="feather-power"></i> Logout</a>
+                        <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
+                        <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
                     </div>
                 </li>
             </ul>

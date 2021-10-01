@@ -7,4 +7,14 @@ class index extends CI_Controller
 	{
 		$this->load->view('index');
 	}
+
+	public function Login()
+	{
+		$this->load->view('login');
+	}
+
+	public function Register()
+	{
+		$this->load->view('register');
+	}
 }

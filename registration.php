@@ -5,8 +5,14 @@ if (isset($_POST['register'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $pass = $_POST['pass'];
-    $query = mysqli_query($conn,"INSERT INTO `masters_users` (`Email_Id`, `Password`, `Create_Date`, `Is_Delete`) VALUES ('$email', '$pass', CURRENT_TIMESTAMP, '1')");
-    $last_id = mysqli_insert_id($conn);
+    $delete = 1;
+
+    $stmt = $conn->prepare("INSERT INTO `masters_users` (`Email_Id`, `Password`,`Is_Delete`) VALUES (?,?,?)");
+    $stmt->bind_param("ssd", $email, $pass, $delete);
+    $stmt->execute();
+    $stmt->close();
+
+    header('location:index.php');
 }
 ?>
 <!DOCTYPE html>

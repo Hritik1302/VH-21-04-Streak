@@ -12,7 +12,12 @@ if (isset($_POST['register'])) {
     $stmt->execute();
     $stmt->close();
 
-    header('location:index.php');
+    // if ($stmt == TRUE) {
+    //     header('location:dashboard.php');
+    //     $activeUserId = mysqli_insert_id($conn);
+    //     $_SESSION['activeUserId'] = $activeUserId;
+    // }
+    //header('location:index.php');
 }
 ?>
 <!DOCTYPE html>

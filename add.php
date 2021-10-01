@@ -1,3 +1,4 @@
+<?php require_once 'php/auth_session.php'?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +13,9 @@
 
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-
     <link rel="stylesheet" href="assets/css/feather.css">
-
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
         * {
@@ -27,7 +27,7 @@
         .wrapper {
             margin: auto;
             max-width: 640px;
-            padding-top: 60px;
+            /* padding-top: 60px; */
             text-align: center;
         }
 
@@ -85,6 +85,27 @@
             color: #95afc0;
             opacity: 0.55;
         }
+
+        .select2-container .select2-selection--single {
+            height: 47px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 48px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 10px;
+            width: 25px;
+        }
+
+        .select2-container .select2-selection--single {
+            border: 1px solid #ccc;
+        }
+
+        label.error {
+            color: red;
+        }
     </style>
 </head>
 
@@ -115,7 +136,7 @@
             </ul>
         </div>
 
-        <div class="page-wrapper ml-4">
+        <div class="page-wrapper">
             <div class="content container-fluid">
 
                 <div class="page-header">
@@ -132,52 +153,79 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row justify-content-around">
+                    <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
                         <div class="login-right-wrap">
-                            <h1>Add your Items Manually</h1>
-                            <form action="" method="POST">
+                            <h1 class="text-center">Add your Items Manually</h1>
+                            <form action="" id="manual-form" method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Vendor Name <small>(Optional)</small></label>
+                                            <select class="form-control dynamic-select" name="vendor_name">
+                                                <option selected="selected" value="NULL">Empty(None)</option>
+                                                <option value="Dmart">Dmart</option>
+                                                <option value="Reliance Stores">Reliance Stores</option>
+                                                <option value="Big Bazzar">Big Bazzar</option>
+                                                <option value="Jio Mart">Jio Mart</option>
+                                                <option value="Zomato">Zomato</option>
+                                                <option value="Swiggy">Swiggy</option>
+                                                <option value="Amazon">Amazon</option>
+                                                <option value="Flipkart">Flipkart</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-control-label">Document Number</label>
-                                            <input class="form-control" type="text" name="doc_no" required>
+                                            <label class="form-control-label">Bill Date</label>
+                                            <input class="form-control" type="date" name="bill_date" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label">Category</label>
-                                            <input class="form-control" type="text" name="cate" required>
+                                            <select class="form-control dynamic-select" name="category">
+                                                <option selected="selected">Grocery</option>
+                                                <option>Health Care</option>
+                                                <option>Utility</option>
+                                                <option>Restaurants</option>
+                                                <option>Papers</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-control-label">Vendor Name <small>(Optional)</small></label>
-                                            <input class="form-control" type="text" name="vendor_name">
+                                            <label class="form-control-label">Amount</label>
+                                            <input class="form-control" type="number" min="0" step="1" name="amount" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-control-label">Amount <small>Rs.</small></label>
-                                            <input class="form-control" type="number" min="0" step="1" name="amount" required="">
+                                            <label class="form-control-label">Currency</label>
+                                            <select class="form-control" name="currency" required>
+                                                <option selected="selected" value="INR">INR</option>
+                                                <option value="USD">USD</option>
+                                                <option value="EURO">EURO</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-0">
-                                    <button class="btn btn-lg btn-block btn-primary" type="submit" name="register">Register</button>
+                                <div class="form-group mb-0 text-center">
+                                    <button class="btn btn-lg btn-primary" type="submit" id="submit_manually" name="submit_manually">Submit</button>
                                 </div>
                             </form>
-                            <div class="text-center dont-have">Already have an account? <a href="index.php">Login</a></div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
                         <div class="login-right-wrap">
+                            <h1 class="text-center">Upload your Bill</h1>
                             <form>
                                 <div class="wrapper">
                                     <div class="container">
-                                        <h1>Upload a file</h1>
                                         <div class="upload-container">
                                             <div class="border-container">
                                                 <div class="icons fa-4x">
@@ -185,7 +233,7 @@
                                                     <i class="fas fa-file-alt" data-fa-transform="shrink-2 up-4"></i>
                                                     <i class="fas fa-file-pdf" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
                                                 </div>
-                                                <!--<input type="file" id="file-upload">-->
+                                                <input type="file" id="file-upload" style="opacity: 0;">
                                                 <p>Drag and drop files here, or
                                                     <a href="#" id="file-browser">browse</a> your computer.
                                                 </p>
@@ -193,7 +241,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group mb-0 text-center">
+                                <div class="form-group mb-0 text-center mt-3">
                                     <button class="btn btn-lg btn-primary" type="submit" name="upload">Upload</button>
                                 </div>
                             </form>
@@ -207,20 +255,90 @@
 
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
-
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
     <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/script.js"></script>
 
     <script>
-        $("#file-upload").css("opacity", "0");
+        $('document').ready(function() {
+            let todayDate = new Date().toISOString().slice(0, 10);
 
-        $("#file-browser").click(function(e) {
-            e.preventDefault();
-            $("#file-upload").trigger("click");
-        });
+            $("input[name=bill_date]").val(todayDate);
+
+            $("#file-upload").css("opacity", "0");
+
+            $("#file-browser").click(function(e) {
+                e.preventDefault();
+                $("#file-upload").trigger("click");
+            });
+
+            $(".dynamic-select").select2({
+                tags: true
+            });
+        })
+
+        $("#submit_manually").on('click', function(e) {
+                e.preventDefault();
+                if ($("#manual-form").valid()) {
+                    var form = $('form');
+                    var url = 'php/ajax/add.php';
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: form.serialize(),
+                        success: function(data) {
+                            if (data == 200) {
+                                Swal.fire(
+                                    'You have succesfully registered!',
+                                    'Login you in',
+                                    'success'
+                                )
+                            } else {
+                                Swal.fire(
+                                    'Something went wrong!',
+                                    'Try again later',
+                                    'error'
+                                )
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#manual-form").validate({
+                rules: {
+                    bill_date: {
+                        required: true,
+                    },
+                    category: {
+                        required: true,
+                    },
+                    amount: {
+                        required: true,
+                        digits: true
+                    },
+                    curreny: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    bill_date: {
+                        required: "Enter Proper Bill Date",
+                    },
+                    category: {
+                        required: "Please Select a Category",
+                    },
+                    amount: {
+                        required: "Please Enter a valid Amount",
+                    },
+                    curreny: {
+                        required: "Please Enter a valid Currency",
+                    }
+                }
+            });
     </script>
 </body>
 

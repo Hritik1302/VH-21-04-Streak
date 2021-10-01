@@ -1,3 +1,4 @@
+<?php require_once 'php/auth_session.php'?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,6 @@
 </head>
 
 <body>
-
     <div class="main-wrapper">
         <div class="header">
             <div class="top-nav-search">
@@ -42,7 +42,7 @@
             </ul>
         </div>
 
-        <div class="page-wrapper ml-4">
+        <div class="page-wrapper m-4">
             <div class="row pt-4">
                 <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
                     <div class="card detail-box1 details-box">

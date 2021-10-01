@@ -1,12 +1,18 @@
 <?php
 require_once 'php/db_con.php';
-if(isset($_POST['login'])){
+session_start();
+if (isset($_SESSION['Users_Id'])) {
+    header('location:dashboard.php');
+}
+if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
-    $query = mysqli_query($conn,"SELECT * FROM `masters_users` WHERE Email_Id = '$email' AND Password = '$pass' ORDER BY Users_Id DESC LIMIT 1");
-    $query_result = mysqli_fetch_array($query);
-    if(isset($query_result)){
-        $_SESSION['User_Id'] = $query_result['User_Id'];
+    $query = mysqli_query($conn, "SELECT * FROM `masters_users` WHERE `Email_Id` = '$email' AND `Password` = '$pass'");
+    $query_result = mysqli_num_rows($query);
+    if ($query_result == 1) {
+        while ($row = mysqli_fetch_array($query)) {
+            $_SESSION['Users_Id'] = $row['Users_Id'];
+        }
         header('location:dashboard.php');
     }
 }
@@ -68,6 +74,34 @@ if(isset($_POST['login'])){
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <script src="assets/js/script.js"></script>
+
+    <script>
+        $("#login").on('click', function(e) {
+            e.preventDefault();
+            if ($("form").valid()) {
+                $("form").submit();
+            }
+        });
+
+        $("form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: 'php/ajax/check-email.php',
+                        type: "post",
+                    }
+                }
+            },
+            messages: {
+                email: {
+                    required: "Email Id is required",
+                    remote: "Email Does not Exist, Please <a href='registration.php'>Register</a>"
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

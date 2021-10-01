@@ -12,4 +12,12 @@ echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js
 // Chart JS
 echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js" integrity="sha512-b3xr4frvDIeyC3gqR1/iOi6T+m3pLlQyXNuvn5FiRrrKiMUJK3du2QqZbCywH6JxS5EOfW0DY0M6WwdXFbCBLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>';
 
+// Poppins Font
+echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
+echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+echo '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">';
+
+// Select 2
+echo '<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />';
+echo '<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>';
 ?>

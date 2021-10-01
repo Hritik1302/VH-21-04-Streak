@@ -5,16 +5,21 @@ class Home extends CI_Controller
 {
 	public function index()
 	{
-		$this->load->view('index');
-	}
-
-	public function Login()
-	{
 		$this->load->view('login');
 	}
 
 	public function Register()
 	{
 		$this->load->view('register');
+	}
+
+	public function Dashboard()
+	{
+		$this->load->view('dashboard');
+	}
+
+	public function Add()
+	{
+		$this->load->view('add-item');
 	}
 }

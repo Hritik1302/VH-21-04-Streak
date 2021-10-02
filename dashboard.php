@@ -185,32 +185,21 @@ while ($row4 = mysqli_fetch_array($query4)) {
                         <canvas id="pie_chart"></canvas>
                     </div>
                 </div>
-                <div class="card">
+                <div class="col-md-4 card">
                     <div class="card-header">
-                        <h5 class="card-title">Activity</h5>
+                        <h5 class="card-title">Analysis Report</h5>
                     </div>
                     <div class="card-body card-body-height">
                         <ul class="activity-feed">
-                            <li class="feed-item">
-                                <div class="feed-date">Nov 16</div>
-                                <span class="feed-text"><a href="profile.html">Brian Johnson</a> has paid the invoice <a href="view-invoice.html">"#DF65485"</a></span>
-                            </li>
-                            <li class="feed-item">
-                                <div class="feed-date">Nov 7</div>
-                                <span class="feed-text"><a href="profile.html">Marie Canales</a> has accepted your estimate <a href="view-estimate.html">#GTR458789</a></span>
-                            </li>
-                            <li class="feed-item">
-                                <div class="feed-date">Oct 24</div>
-                                <span class="feed-text">New expenses added <a href="expenses.html">"#TR018756</a></span>
-                            </li>
+                        <div class="pie_chart_message" style="font-size:25px"></div>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 p-4" style="background: white;border-radius: 25px;">
+                <!-- <div class="col-md-3 p-4" style="background: white;border-radius: 25px;">
                     <div class="login-right-wrap">
                         <div class="pie_chart_message"></div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="row justify-content-around pt-3">
                 <div class="col-md-8 p-4" style="background: white;border-radius: 25px;">
@@ -315,7 +304,7 @@ while ($row4 = mysqli_fetch_array($query4)) {
                     var percent = parseInt((currentAmount / total) * 100);
                     var message = percent + '% spent on' + currentName + '<br>';
 
-                    var message = "<li class='feed-item'><span class='feed-text'>"+percent + '% spent on' + currentName+"<a href='#'>'#DF65485'</a></span></li>";
+                    var message = "<li class='feed-item'><span class='feed-text'>"+percent + '% spent on' + currentName+"</span></li>";
                     $('.pie_chart_message').append(message);
                 }
             }

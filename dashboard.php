@@ -34,28 +34,33 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 <body>
     <div class="main-wrapper">
         <div class="header">
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i>
-                    </button>
-                </form>
-            </div>
-
-            <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i></a>
-
-            <ul class="nav user-menu">
-                <li class="nav-item dropdown has-arrow main-drop ml-md-3">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="assets/img/avatar.jpg" alt="placeholder">
-                            <span class="status online"></span></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
-                        <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
+                        VH-21-04-Streak
                     </div>
-                </li>
-            </ul>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <div class="d-flex justify-content-end">
+                        <div class="buttons mt-auto mb-auto">
+                            <button type="button" class="btn btn-primary" onclick="window.open('add.php','_parent')">Add Bill</button>
+                        </div>
+                        <ul class="nav user-menu">
+                            <li class="nav-item dropdown has-arrow main-drop ml-md-3">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <span class="user-img"><img src="assets/img/avatar.jpg" alt="placeholder">
+                                        <span class="status online"></span></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
+                                    <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="page-wrapper m-4 pb-5">
@@ -151,16 +156,15 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 
 
             <div class="row justify-content-around">
-                <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
+                <div class="col-md-6 p-4" style="background: white;border-radius: 25px;">
                     <div class="login-right-wrap">
                         <h1 class="text-center">Pie Chart</h1>
                         <canvas id="pie_chart"></canvas>
                     </div>
                 </div>
-                <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
+                <div class="col-md-4 p-4" style="background: white;border-radius: 25px;">
                     <div class="login-right-wrap">
-                        <h1 class="text-center">Bar Graph</h1>
-                        <canvas id="bar_graph"></canvas>
+                        <div class="pie_chart_message"></div>
                     </div>
                 </div>
             </div>
@@ -172,7 +176,8 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                     </div>
                 </div>
                 <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
-                    <div class="login-right-wrap">
+                    <div class="log
+                    in-right-wrap">
                         <h1 class="text-center">Radar Chart</h1>
                         <canvas id="radar_chart"></canvas>
                     </div>
@@ -190,161 +195,60 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
     <script src="assets/js/calander.js"></script>
     <script src="assets/js/script.js"></script>
     <script>
-        var ctx = document.getElementById('pie_chart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
-                datasets: [{
-                    label: 'Items',
-                    data: [12, 19, 3, 5],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+        // var ctx = document.getElementById('pie_chart').getContext('2d');
+        // var myChart = new Chart(ctx, {
+        //     type: 'pie',
+        //     data: {
+        //         labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
+        //         datasets: [{
+        //             label: 'Items',
+        //             data: [12, 19, 3, 5],
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)',
+        //                 'rgba(255, 159, 64, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255, 99, 132, 1)',
+        //                 'rgba(75, 192, 192, 1)',
+        //                 'rgba(153, 102, 255, 1)',
+        //                 'rgba(255, 159, 64, 1)'
+        //             ],
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+        $(document).ready(function() {
 
-        var ctx = document.getElementById('bar_graph').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
-                datasets: [{
-                    label: 'Items',
-                    data: [12, 19, 3, 5],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+            function PieChart(valuesArray, amountArray) {
+                valuesArrayCount = valuesArray.length;
+                colorArray = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
+                borderArray = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
 
-        var ctx = document.getElementById('polar_chart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'polarArea',
-            data: {
-                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+                var shuffled = colorArray.sort(() => 0.5 - Math.random());
+                let selectedColor = shuffled.slice(0, valuesArrayCount);
 
-        var ctx = document.getElementById('radar_chart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+                var shuffled = borderArray.sort(() => 0.5 - Math.random());
+                let selectedBorder = shuffled.slice(0, valuesArrayCount);
 
-        function UpdateChart(valuesArray, amountArray) {
-            valuesArrayCount = valuesArray.length;
-            colorArray = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
-            borderArray = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
-
-            chartName = ['radar', 'polarArea', 'bar', 'pie'];
-            chartId = ['radar_chart', 'polar_chart', 'bar_chart', 'pie_chart'];
-
-            for (let index = 0; index < 5; index++) {
-                var ctx = document.getElementById(chartId[index]).getContext('2d');
+                var ctx = document.getElementById('pie_chart').getContext('2d');
                 var myChart = new Chart(ctx, {
-                    type: chartName[index],
+                    type: 'pie',
                     data: {
-                        labels: valuesArray[index],
+                        labels: valuesArray,
                         datasets: [{
                             label: 'Chart JS',
-                            data: amountArray[index],
-                            backgroundColor: function(){
-                                const shuffled = colorArray.sort(() => 0.5 - Math.random());
-                                let selected = shuffled.slice(0, valuesArrayCount);
-                                return selected;
-                            },
-                            borderColor: function(){
-                                const shuffled = borderArray.sort(() => 0.5 - Math.random());
-                                let selected = shuffled.slice(0, valuesArrayCount);
-                                return selected;
-                            },
+                            data: amountArray,
+                            backgroundColor: selectedColor,
+                            borderColor: selectedBorder,
                             borderWidth: 1
                         }]
                     },
@@ -356,28 +260,43 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                         }
                     }
                 });
-            }
-        }
 
-        function UpdateCheckBox() {
-            var checkboxValues = [];
-            var checkboxAmount = [];
-            $('input[name=chk]:checked').map(function() {
-                checkboxValues.push($(this).val());
-            });
-
-            for (let index = 0; index < checkboxValues.length; index++) {
                 var total = 0;
-                var a = checkboxValues[index];
-                $('input[name ="' + a + '"]').map(function() {
-                    total = total + parseInt($(this).val());
-                });
-                checkboxAmount.push(total);
-            }
-            // UpdateChart(checkboxValues, checkboxAmount);
-        }
+                for (let index = 0; index < amountArray; index++) {
+                    total = total + parseInt(amountArray[index]);
+                }
 
-        UpdateCheckBox();
+                for (let index = 0; index < valuesArrayCount; index++) {
+                    var currentAmount = parseFloat(amountArray[index]);
+                    var currentName = valuesArray[index];
+                    var percent = (currentAmount / total) * 100;
+                    console.log(typeof(total));
+                    var message = percent + '% spent on' + currentName + '<br>';
+                    $('.pie_chart_message').append(message);
+                }
+            }
+
+
+            function UpdateCheckBox() {
+                var checkboxValues = [];
+                var checkboxAmount = [];
+                $('input[name=chk]:checked').map(function() {
+                    checkboxValues.push($(this).val());
+                });
+
+                for (let index = 0; index < checkboxValues.length; index++) {
+                    var total = 0;
+                    var a = checkboxValues[index];
+                    $('input[name ="' + a + '"]').map(function() {
+                        total = total + parseInt($(this).val());
+                    });
+                    checkboxAmount.push(total);
+                }
+                PieChart(checkboxValues, checkboxAmount);
+            }
+
+            UpdateCheckBox();
+        })
     </script>
 </body>
 

@@ -19,7 +19,7 @@ $sql_result_array = mysqli_fetch_array($sql_result);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>VH-21-04-Profile</title>
+    <title>VH-21-04-Streak</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
@@ -39,34 +39,34 @@ $sql_result_array = mysqli_fetch_array($sql_result);
 
     <div class="main-wrapper">
 
-        <div class="header">
-            <a href="javascript:void(0);" id="toggle_btn"> <i class="fas fa-bars"></i>
-            </a>
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i>
-                    </button>
-                </form>
-            </div>
-
-            <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i>
-            </a>
-
-
-            <ul class="nav user-menu">
-                <li class="nav-item dropdown has-arrow main-drop ml-md-3">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="assets/img/avatar.jpg" alt="">
-                            <span class="status online"></span></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
-                        <a class="dropdown-item" href="login.php"><i class="feather-power"></i> Logout</a>
+    <div class="header">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
+                        VH-21-04-Streak
                     </div>
-                </li>
-            </ul>
-
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <div class="d-flex justify-content-end">    
+                        <div class="buttons mt-auto mb-auto">
+                            <button type="button" class="btn btn-primary" onclick="window.open('index.php','_parent')">Dashboard</button>
+                        </div>
+                        <ul class="nav user-menu">
+                            <li class="nav-item dropdown has-arrow main-drop ml-md-3">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <span class="user-img"><img src="assets/img/avatar.jpg" alt="placeholder">
+                                        <span class="status online"></span></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
+                                    <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="page-wrapper ml-3">
             <div class="content container-fluid">

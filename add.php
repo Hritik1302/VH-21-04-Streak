@@ -113,27 +113,34 @@
 
     <div class="main-wrapper">
 
-        <div class="header">
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i>
-                    </button>
-                </form>
-            </div>
-
-            <ul class="nav user-menu">
-                <li class="nav-item dropdown has-arrow main-drop ml-md-3">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="assets/img/avatar.jpg" alt="">
-                            <span class="status online"></span></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
-                        <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
+    <div class="header">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
+                        VH-21-04-Streak
                     </div>
-                </li>
-            </ul>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <div class="d-flex justify-content-end">    
+                        <div class="buttons mt-auto mb-auto">
+                            <button type="button" class="btn btn-primary" onclick="window.open('index.php','_parent')">Dashboard</button>
+                        </div>
+                        <ul class="nav user-menu">
+                            <li class="nav-item dropdown has-arrow main-drop ml-md-3">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <span class="user-img"><img src="assets/img/avatar.jpg" alt="placeholder">
+                                        <span class="status online"></span></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
+                                    <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="page-wrapper">

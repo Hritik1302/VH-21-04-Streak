@@ -3,6 +3,30 @@ require_once 'php/auth_session.php';
 require_once 'php/db_con.php';
 $Users_id = $_SESSION['Users_Id'];
 $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$Users_id'");
+$prefercurrency = '';
+function convertCurrency($amount, $from_currency, $to_currency)
+{
+    $apikey = '1b0c7e70102baa555ea9';
+    $from_Currency = urlencode($from_currency);
+    $to_Currency = urlencode($to_currency);
+    $queryfun =  "{$from_Currency}_{$to_Currency}";
+    $json = file_get_contents("https://free.currconv.com/api/v7/convert?q={$queryfun}&compact=ultra&apiKey={$apikey}");
+    $obj = json_decode($json, true);
+    $val = floatval($obj["$queryfun"]);
+    $total = $val * $amount;
+    return number_format($total, 2, '.', '');
+}
+$query3 = mysqli_query($conn, "SELECT * FROM `masters_profile` WHERE `Users_Id` = '$Users_id'");
+while ($row3 = mysqli_fetch_array($query3)) {
+    $prefercurrency = $row3['Currency'];
+}
+
+$query4 = mysqli_query($conn, "SELECT `Bill_Amount`,`Currency` FROM bill_data WHERE Bill_Date > (NOW() - INTERVAL 1 MONTH) AND `User_Id` = '$Users_id'");
+$total = 0;
+while ($row4 = mysqli_fetch_array($query4)) {
+    $amount = convertCurrency($row4['Bill_Amount'], $row4['Currency'], $prefercurrency);
+    $total = $amount + $total;
+}
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +51,7 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
     canvas {
         width: 100% !important;
         height: auto !important;
-        max-height: 320px;
+        max-height: 500px;
     }
 </style>
 
@@ -70,13 +94,10 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                         <div class="card-body">
                             <div class="dash-contetnt">
                                 <div class="mb-3">
-                                    <img src="assets/img/icons/accident.svg" alt="" width="26">
+                                    <i class="fas fa-rupee-sign"></i>
                                 </div>
-                                <h4 class="text-white">Total Products</h4>
-                                <h2 class="text-white">NA</h2>
-                                <div class="growth-indicator">
-                                    <span class="text-white"><i class="fas fa-angle-double-up mr-1"></i> (14.25%)</span>
-                                </div>
+                                <h4 class="text-white">Preferred Currency</h4>
+                                <h2 class="text-white"><?= $prefercurrency ?></h2>
                             </div>
                         </div>
                     </div>
@@ -88,8 +109,8 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                                 <div class="mb-3">
                                     <img src="assets/img/icons/visits.svg" alt="" width="26">
                                 </div>
-                                <h4 class="text-white">Total Items</h4>
-                                <h2 class="text-white">NA</h2>
+                                <h4 class="text-white">Total Amount Spent in Last Month</h4>
+                                <h2 class="text-white"><?= $total . ' ' . $prefercurrency ?></h2>
                                 <div class="growth-indicator">
                                     <span class="text-white"><i class="fas fa-angle-double-down mr-1"></i> (4.78%)</span>
                                 </div>
@@ -146,7 +167,9 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                                 </div>';
                     $query2 = mysqli_query($conn, "SELECT * FROM `bill_data` WHERE `User_Id` = '$_SESSION[Users_Id]' AND `Bill_Category` = '$row[Category]'");
                     while ($row2 = mysqli_fetch_array($query2)) {
-                        $html .= '<input type="hidden" value="' . $row2['Bill_Amount'] . '" name="' . $row['Category'] . '">';
+                        $conversion = convertCurrency($row2['Bill_Amount'], $row2['Currency'], $prefercurrency);
+
+                        $html .= '<input type="hidden" value="' . $conversion . '" name="' . $row['Category'] . '">';
                     }
                 }
                 $html .= '</div></div></div>';
@@ -156,34 +179,51 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 
 
             <div class="row justify-content-around">
-                <div class="col-md-6 p-4" style="background: white;border-radius: 25px;">
+                <div class="col-md-7 p-4" style="background: white;border-radius: 25px;">
                     <div class="login-right-wrap">
-                        <h1 class="text-center">Pie Chart</h1>
+                        <h1 class="text-center">Your Monthly Expense Analysis</h1>
                         <canvas id="pie_chart"></canvas>
                     </div>
                 </div>
-                <div class="col-md-4 p-4" style="background: white;border-radius: 25px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Activity</h5>
+                    </div>
+                    <div class="card-body card-body-height">
+                        <ul class="activity-feed">
+                            <li class="feed-item">
+                                <div class="feed-date">Nov 16</div>
+                                <span class="feed-text"><a href="profile.html">Brian Johnson</a> has paid the invoice <a href="view-invoice.html">"#DF65485"</a></span>
+                            </li>
+                            <li class="feed-item">
+                                <div class="feed-date">Nov 7</div>
+                                <span class="feed-text"><a href="profile.html">Marie Canales</a> has accepted your estimate <a href="view-estimate.html">#GTR458789</a></span>
+                            </li>
+                            <li class="feed-item">
+                                <div class="feed-date">Oct 24</div>
+                                <span class="feed-text">New expenses added <a href="expenses.html">"#TR018756</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 p-4" style="background: white;border-radius: 25px;">
                     <div class="login-right-wrap">
                         <div class="pie_chart_message"></div>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-around pt-3">
-                <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
+                <div class="col-md-8 p-4" style="background: white;border-radius: 25px;">
                     <div class="login-right-wrap">
-                        <h1 class="text-center">Polar Chart</h1>
-                        <canvas id="polar_chart"></canvas>
-                    </div>
-                </div>
-                <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
-                    <div class="log
-                    in-right-wrap">
-                        <h1 class="text-center">Radar Chart</h1>
-                        <canvas id="radar_chart"></canvas>
+                        <h1 class="text-center">Your Expense Analysis Comparision with Last Month</h1>
+                        <canvas id="bar_chart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- <input type="hidden" name="" id= "value1">
+        <input type="hidden" name="" id= "value2"> -->
+
     </div>
     </div>
     </div>
@@ -226,6 +266,9 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
         //         }
         //     }
         // });
+        var checkboxValues = [];
+        var checkboxAmount = [];
+
         $(document).ready(function() {
 
             function PieChart(valuesArray, amountArray) {
@@ -271,14 +314,13 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                     var currentName = valuesArray[index];
                     var percent = parseInt((currentAmount / total) * 100);
                     var message = percent + '% spent on' + currentName + '<br>';
+
+                    var message = "<li class='feed-item'><span class='feed-text'>"+percent + '% spent on' + currentName+"<a href='#'>'#DF65485'</a></span></li>";
                     $('.pie_chart_message').append(message);
                 }
             }
 
-
             function UpdateCheckBox() {
-                var checkboxValues = [];
-                var checkboxAmount = [];
                 $('input[name=chk]:checked').map(function() {
                     checkboxValues.push($(this).val());
                 });
@@ -296,6 +338,126 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 
             UpdateCheckBox();
         })
+
+        var url = 'php/ajax/pastone.php';
+        var url2 = 'php/ajax/pasttwo.php';
+
+        checkboxValuesB = [];
+
+        $('input[name=chk]:checked').map(function() {
+            checkboxValuesB.push($(this).val());
+        });
+
+        var amount1 = [];
+        var amount2 = [];
+
+        for (let index = 0; index < checkboxValuesB.length; index++) {
+            $.ajax({
+                type: "post",
+                url: url,
+                async: false,
+                data: {
+                    category: checkboxValuesB[index],
+                },
+                success: function(data) {
+                    amount1.push(data);
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: url2,
+                async: false,
+                data: {
+                    category: checkboxValuesB[index],
+                },
+                success: function(data) {
+                    amount2.push(data);
+                }
+            });
+
+            amount2[index] = amount2[index] - amount1[index];
+        }
+
+        // for (let index = 0; index < checkboxValuesB.length; index++) {
+        //     var total = 0;
+        //     var a = checkboxValuesB[index];
+        //     $('input[name ="' + a + '"]').map(function() {
+        //         total = total + parseInt($(this).val());
+        //     });
+        //     checkboxAmount.push(total);
+        // }
+
+        var barChartData = {
+            labels: checkboxValuesB,
+            datasets: [{
+                    label: "Last Month",
+                    backgroundColor: "pink",
+                    borderColor: "red",
+                    borderWidth: 1,
+                    data: amount1
+                },
+                {
+                    label: "This month",
+                    backgroundColor: "lightblue",
+                    borderColor: "blue",
+                    borderWidth: 1,
+                    data: amount2
+                },
+            ]
+        };
+        var chartOptions = {
+            responsive: true,
+            legend: {
+                position: "top"
+            },
+            title: {
+                display: true,
+                text: "Chart.js Bar Chart"
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+        var ctx = document.getElementById("bar_chart").getContext("2d");
+        window.myBar = new Chart(ctx, {
+            type: "bar",
+            data: barChartData,
+            options: chartOptions
+        });
+
+        // var myChart = new Chart(ctx, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: checkboxValues,
+        //         datasets: [{
+        //                 label: "Last Month",
+        //                 backgroundColor: "pink",
+        //                 borderColor: "red",
+        //                 borderWidth: 1,
+        //                 data: [3, 5, 7]
+        //             },
+        //             {
+        //                 label: "This month",
+        //                 backgroundColor: "lightblue",
+        //                 borderColor: "blue",
+        //                 borderWidth: 1,
+        //                 data: [4, 4, 6]
+        //             },
+        //         ]
+        //     },
+        //     options: {
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
     </script>
 </body>
 

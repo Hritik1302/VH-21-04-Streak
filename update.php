@@ -39,6 +39,7 @@ if (isset($_POST['update'])) {
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="assets/plugins/simple-calendar/simple-calendar.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="assets/css/feather.css">
 
@@ -50,33 +51,33 @@ if (isset($_POST['update'])) {
     <div class="main-wrapper">
 
         <div class="header">
-            <a href="javascript:void(0);" id="toggle_btn"> <i class="fas fa-bars"></i>
-            </a>
-            <div class="top-nav-search">
-                <form>
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <button class="btn" type="submit"><i class="fa fa-search"></i>
-                    </button>
-                </form>
-            </div>
-
-            <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i>
-            </a>
-
-
-            <ul class="nav user-menu">
-                <li class="nav-item dropdown has-arrow main-drop ml-md-3">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="assets/img/avatar.jpg" alt="">
-                            <span class="status online"></span></span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
-                        <a class="dropdown-item" href="login.php"><i class="feather-power"></i> Logout</a>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
+                        VH-21-04-Streak
                     </div>
-                </li>
-            </ul>
-
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <div class="d-flex justify-content-end">
+                        <div class="buttons mt-auto mb-auto">
+                            <button type="button" class="btn btn-primary" onclick="window.open('index.php','_parent')">Dashboard</button>
+                        </div>
+                        <ul class="nav user-menu">
+                            <li class="nav-item dropdown has-arrow main-drop ml-md-3">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <span class="user-img"><img src="assets/img/avatar.jpg" alt="placeholder">
+                                        <span class="status online"></span></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="profile.php"><i class="feather-user"></i> My Profile</a>
+                                    <a class="dropdown-item" href="logout.php"><i class="feather-power"></i> Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="page-wrapper ml-3">
             <div class="content container-fluid">
@@ -86,7 +87,7 @@ if (isset($_POST['update'])) {
                         <div class="page-header">
                             <div class="row align-items-center">
                                 <div class="col-md-12">
-                                    <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center">
                                         <h5 class="page-title">Dashboard</h5>
                                         <ul class="breadcrumb ml-2">
                                             <li class="breadcrumb-item"><a href="dashboard.php"><i class="fas fa-home"></i></a></li>
@@ -98,51 +99,59 @@ if (isset($_POST['update'])) {
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-xl-9 col-md-8">
+                            <div class="col-xl-7 col-md-7">
                                 <div class="card">
                                     <div class="card-header">
                                         <h5 class="card-title">Basic information</h5>
                                     </div>
                                     <div class="card-body">
-
                                         <form method="POST">
-                                            <div class="row form-group">
-                                                <label for="User_Name" class="col-sm-3 col-form-label input-label">Full Name</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="User_Name" name="User_Name" value="<?php echo $sql_result_array['User_Name'] ?>">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="User_Name" class="col-form-label input-label">Full Name</label>
+                                                        <input type="text" class="form-control" id="User_Name" name="User_Name" value="<?php echo $sql_result_array['User_Name'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="Email_Id" class="col-form-label input-label">Email Id</label>
+                                                        <input type="email" class="form-control" id="Email_Id" name="Email_Id" value="<?php echo $sql_result_array['Email_Id'] ?>" readonly>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
-                                                <label for="Email_Id" class="col-sm-3 col-form-label input-label">Email Id</label>
-                                                <div class="col-sm-9">
-                                                    <input type="email" class="form-control" id="Email_Id" name="Email_Id" value="<?php echo $sql_result_array['Email_Id'] ?>" readonly>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="Contact_Number" class="col-form-label input-label">Contact Number</label>
+                                                        <input type="number" class="form-control" id="Contact_Number" name="Contact_Number" value="<?php echo $sql_result_array['Contact_Number'] ?>" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="Monthly_Inc" class="col-form-label input-label">Monthly Income</label>
+                                                        <input type="number" class="form-control" id="Monthly_Inc" name="Monthly_Inc" value="<?php echo $sql_result_array['Monthly_Inc'] ?>">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
-                                                <label for="Contact_Number" class="col-sm-3 col-form-label input-label">Contact Number</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control" id="Contact_Number" name="Contact_Number" value="<?php echo $sql_result_array['Contact_Number'] ?>" readonly>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <?php
+                                                        $url = 'https://free.currconv.com/api/v7/currencies?apiKey=1b0c7e70102baa555ea9';
+                                                        $fetch = file_get_contents($url);
+                                                        $data = json_decode($fetch);
+                                                        ?>
+                                                        <label class="form-control-label">Currency</label>
+                                                        <select class="form-control dynamic-select" name="currency" required>
+                                                            <?php foreach ($data->results as $sa) { ?>
+                                                                <option value="<?php echo $sa->id; ?>"><?php echo $sa->currencyName; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
-                                                <label for="Monthly_Inc" class="col-sm-3 col-form-label input-label">MonthlyInc</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control" id="Monthly_Inc" name="Monthly_Inc" value="<?php echo $sql_result_array['Monthly_Inc'] ?>">
-                                                </div>
-                                            </div>
-                                            <div class="row form-group">
-
-                                                <label class="col-sm-3 col-form-label input-label">Currency</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" name="currency" required>
-                                                        <option selected="selected" value="INR">INR</option>
-                                                        <option value="USD">USD</option>
-                                                        <option value="EURO">EURO</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                            <div class="text-right">
+                                            <div class="text-center mb-3">
                                                 <button type="submit" class="btn btn-primary" name="update">Save Changes</button>
                                             </div>
                                         </form>
@@ -161,15 +170,21 @@ if (isset($_POST['update'])) {
 
             </div>
 
-
-            <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
             <script src="assets/js/jquery-3.6.0.min.js"></script>
 
             <script src="assets/js/bootstrap.bundle.min.js"></script>
 
             <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
             <script src="assets/js/script.js"></script>
+
+            <script>
+                $(".dynamic-select").select2({
+                    tags: false
+                });
+            </script>
 </body>
 
 </html>

@@ -39,7 +39,7 @@ $sql_result_array = mysqli_fetch_array($sql_result);
 
     <div class="main-wrapper">
 
-    <div class="header">
+        <div class="header">
             <div class="row">
                 <div class="col-md-3">
                     <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
@@ -48,7 +48,7 @@ $sql_result_array = mysqli_fetch_array($sql_result);
                 </div>
                 <div class="col-md-6"></div>
                 <div class="col-md-3">
-                    <div class="d-flex justify-content-end">    
+                    <div class="d-flex justify-content-end">
                         <div class="buttons mt-auto mb-auto">
                             <button type="button" class="btn btn-primary" onclick="window.open('index.php','_parent')">Dashboard</button>
                         </div>
@@ -173,9 +173,6 @@ $sql_result_array = mysqli_fetch_array($sql_result);
 
 
             </div>
-
-
-            <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
             <script src="assets/js/jquery-3.6.0.min.js"></script>
 
             <script src="assets/js/bootstrap.bundle.min.js"></script>

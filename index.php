@@ -33,6 +33,16 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .login-wrapper .loginbox .login-right {
+            width: 450px;
+        }
+
+        .login-wrapper .loginbox {
+            max-width: 450px;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once('php/auth_session.php');
 require_once('php/db_con.php');
 $id = $_SESSION['Users_Id'];

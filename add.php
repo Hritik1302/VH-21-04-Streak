@@ -1,4 +1,5 @@
-<?php require_once 'php/auth_session.php' ?>
+<?php require_once 'php/auth_session.php'; 
+error_reporting(0);?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -234,7 +235,7 @@
                     </div>
                     <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
                         <div class="login-right-wrap">
-                            <h1 class="text-center">Upload your Bill</h1>
+                            <h1 class="text-center">Upload your Bill <small style="font-size:15px">BETA</small> </h1>
                             <form>
                                 <div class="wrapper">
                                     <div class="container">

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once 'php/auth_session.php';
 require_once 'php/db_con.php';
 $Users_id = $_SESSION['Users_Id'];
@@ -6,7 +7,7 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 $prefercurrency = '';
 function convertCurrency($amount, $from_currency, $to_currency)
 {
-    $apikey = '42a03541b8065eeb72fa';
+    $apikey = '9f129629d1a7d3c12a70';
     $from_Currency = urlencode($from_currency);
     $to_Currency = urlencode($to_currency);
     $queryfun =  "{$from_Currency}_{$to_Currency}";

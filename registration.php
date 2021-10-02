@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +65,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <?php
-                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=a72bc50ebd78a4cf14b3';
+                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=9f129629d1a7d3c12a70';
                                             $fetch = file_get_contents($url);
                                             $data = json_decode($fetch);
                                             ?>

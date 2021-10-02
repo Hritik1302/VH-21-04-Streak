@@ -113,7 +113,7 @@
 
     <div class="main-wrapper">
 
-    <div class="header">
+        <div class="header">
             <div class="row">
                 <div class="col-md-3">
                     <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-md-6"></div>
                 <div class="col-md-3">
-                    <div class="d-flex justify-content-end">    
+                    <div class="d-flex justify-content-end">
                         <div class="buttons mt-auto mb-auto">
                             <button type="button" class="btn btn-primary" onclick="window.open('index.php','_parent')">Dashboard</button>
                         </div>
@@ -212,11 +212,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <?php
+                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=f1453288cb239163fc60';
+                                            $fetch = file_get_contents($url);
+                                            $data = json_decode($fetch);
+                                            ?>
                                             <label class="form-control-label">Currency</label>
-                                            <select class="form-control" name="currency" required>
-                                                <option selected="selected" value="INR">INR</option>
-                                                <option value="USD">USD</option>
-                                                <option value="EURO">EURO</option>
+                                            <select class="form-control dynamic-select" name="currency" required>
+                                                <?php foreach ($data->results as $sa) { ?>
+                                                    <option value="<?php echo $sa->id; ?>"><?php echo $sa->currencyName; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -284,7 +289,7 @@
             });
 
             $(".dynamic-select").select2({
-                tags: true
+                tags: false
             });
         })
 

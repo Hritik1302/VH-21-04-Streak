@@ -262,15 +262,14 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                 });
 
                 var total = 0;
-                for (let index = 0; index < amountArray; index++) {
+                for (let index = 0; index < valuesArrayCount; index++) {
                     total = total + parseInt(amountArray[index]);
                 }
 
                 for (let index = 0; index < valuesArrayCount; index++) {
                     var currentAmount = parseFloat(amountArray[index]);
                     var currentName = valuesArray[index];
-                    var percent = (currentAmount / total) * 100;
-                    console.log(typeof(total));
+                    var percent = parseInt((currentAmount / total) * 100);
                     var message = percent + '% spent on' + currentName + '<br>';
                     $('.pie_chart_message').append(message);
                 }

@@ -3,6 +3,7 @@ require_once 'php/auth_session.php';
 require_once 'php/db_con.php';
 $Users_id = $_SESSION['Users_Id'];
 $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$Users_id'");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,9 +136,13 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
                 while ($row = mysqli_fetch_array($query)) {
                     $html .= '<div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="chk" id="chk" onclick="UpdateChart(this)" value="' . $row['Category'] . '" checked> ' . $row['Category'] . '
+                                        <input type="checkbox" name="chk" id="chk" onclick="UpdateCheckBox(this)" value="' . $row['Category'] . '" checked> ' . $row['Category'] . '
                                     </label>
                                 </div>';
+                    $query2 = mysqli_query($conn, "SELECT * FROM `bill_data` WHERE `User_Id` = '$_SESSION[Users_Id]' AND `Bill_Category` = '$row[Category]'");
+                    while ($row2 = mysqli_fetch_array($query2)) {
+                        $html .= '<input type="hidden" value="' . $row2['Bill_Amount'] . '" name="' . $row['Category'] . '">';
+                    }
                 }
                 $html .= '</div></div></div>';
                 echo $html;
@@ -189,22 +194,18 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
         var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Items',
+                    data: [12, 19, 3, 5],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
@@ -225,23 +226,19 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Items',
+                    data: [12, 19, 3, 5],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
@@ -261,24 +258,20 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
         var myChart = new Chart(ctx, {
             type: 'polarArea',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [12, 19, 3, 5],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
@@ -297,24 +290,20 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
         var myChart = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Grocery', 'Utility', 'Daily Product', 'Paper'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [12, 19, 3, 5],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
@@ -329,15 +318,66 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
             }
         });
 
-        function UpdateChart() {
+        function UpdateChart(valuesArray, amountArray) {
+            valuesArrayCount = valuesArray.length;
+            colorArray = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
+            borderArray = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+
+            chartName = ['radar', 'polarArea', 'bar', 'pie'];
+            chartId = ['radar_chart', 'polar_chart', 'bar_chart', 'pie_chart'];
+
+            for (let index = 0; index < 5; index++) {
+                var ctx = document.getElementById(chartId[index]).getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: chartName[index],
+                    data: {
+                        labels: valuesArray[index],
+                        datasets: [{
+                            label: 'Chart JS',
+                            data: amountArray[index],
+                            backgroundColor: function(){
+                                const shuffled = colorArray.sort(() => 0.5 - Math.random());
+                                let selected = shuffled.slice(0, valuesArrayCount);
+                                return selected;
+                            },
+                            borderColor: function(){
+                                const shuffled = borderArray.sort(() => 0.5 - Math.random());
+                                let selected = shuffled.slice(0, valuesArrayCount);
+                                return selected;
+                            },
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function UpdateCheckBox() {
             var checkboxValues = [];
+            var checkboxAmount = [];
             $('input[name=chk]:checked').map(function() {
                 checkboxValues.push($(this).val());
             });
-            console.log(checkboxValues);
+
+            for (let index = 0; index < checkboxValues.length; index++) {
+                var total = 0;
+                var a = checkboxValues[index];
+                $('input[name ="' + a + '"]').map(function() {
+                    total = total + parseInt($(this).val());
+                });
+                checkboxAmount.push(total);
+            }
+            // UpdateChart(checkboxValues, checkboxAmount);
         }
 
-        UpdateChart();
+        UpdateCheckBox();
     </script>
 </body>
 

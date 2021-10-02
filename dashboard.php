@@ -7,7 +7,7 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 $prefercurrency = '';
 function convertCurrency($amount, $from_currency, $to_currency)
 {
-    $apikey = '9f129629d1a7d3c12a70';
+    $apikey = '7d0968ec62dadcbb7b95';
     $from_Currency = urlencode($from_currency);
     $to_Currency = urlencode($to_currency);
     $queryfun =  "{$from_Currency}_{$to_Currency}";
@@ -126,8 +126,8 @@ while ($row4 = mysqli_fetch_array($query4)) {
                                 <div class="mb-3">
                                     <img src="assets/img/icons/hospital-bed.svg" alt="" width="26">
                                 </div>
-                                <h4 class="text-white">New Items</h4>
-                                <h2 class="text-white">NA</h2>
+                                <h4 class="text-white">Category Count</h4>
+                                <h2 class="text-white">5</h2>
                                 <div class="growth-indicator">
                                     <span class="text-white"><i class="fas fa-angle-double-up mr-1"></i> (18.32%)</span>
                                 </div>
@@ -143,7 +143,7 @@ while ($row4 = mysqli_fetch_array($query4)) {
                                     <img src="assets/img/icons/operating.svg" alt="" width="26">
                                 </div>
                                 <h4 class="text-white">Total Income</h4>
-                                <h2 class="text-white">NA</h2>
+                                <h2 class="text-white">10000</h2>
                                 <div class="growth-indicator">
                                     <span class="text-white"><i class="fas fa-angle-double-down mr-1"></i> (25.14%)</span>
                                 </div>

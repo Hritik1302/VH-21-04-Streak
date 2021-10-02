@@ -214,14 +214,14 @@ error_reporting(0);?>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <?php
-                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=8bfa59c615ffe94939f9';
+                                            $url = 'symbol.json';
                                             $fetch = file_get_contents($url);
                                             $data = json_decode($fetch);
                                             ?>
                                             <label class="form-control-label">Currency</label>
                                             <select class="form-control dynamic-select" name="currency" required>
-                                                <?php foreach ($data->results as $sa) { ?>
-                                                    <option value="<?php echo $sa->id; ?>"><?php echo $sa->currencyName; ?></option>
+                                                <?php foreach ($data as $sa) { ?>
+                                                    <option value="<?php echo $sa->code; ?>"><?php echo $sa->name; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

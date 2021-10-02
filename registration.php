@@ -65,14 +65,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <?php
-                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=9f129629d1a7d3c12a70';
+                                            $url = 'symbol.json';
                                             $fetch = file_get_contents($url);
                                             $data = json_decode($fetch);
                                             ?>
                                             <label class="form-control-label">Currency</label>
                                             <select class="form-control dynamic-select" name="currency" required>
-                                                <?php foreach ($data->results as $sa) { ?>
-                                                    <option value="<?php echo $sa->id; ?>"><?php echo $sa->currencyName; ?></option>
+                                                <?php foreach ($data as $sa) { ?>
+                                                    <option value="<?php echo $sa->code; ?>"><?php echo $sa->name; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

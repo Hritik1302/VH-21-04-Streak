@@ -1,10 +1,12 @@
 <?php
+require_once('php/auth_session.php');
 require_once('php/db_con.php');
-// $id = $_SESSION['User_Id'];
-// $sql = "SELECT * `masters_users` WHERE 'User_Id' = $id ORDER BY 'User_Id' DESC LIMIT 1";
-// $sql_result = mysqli_query($conn, $sql);
-// $sql_result_array = mysqli_fetch_array($sql_result);
-// $name = $sql_result_array['name'];
+$id = $_SESSION['Users_Id'];
+$sql = "SELECT masters_users.Email_Id, masters_profile.Monthly_Inc, masters_profile.User_Name, masters_profile.Contact_Number, masters_profile.Monthly_Inc, masters_profile.Currency FROM masters_users INNER JOIN masters_profile ON masters_users.Users_Id = masters_profile.Users_Id WHERE masters_users.Users_Id = '$id'";
+$sql_result = mysqli_query($conn, $sql);
+$sql_result_array = mysqli_fetch_array($sql_result);
+
+
 
 
 
@@ -102,7 +104,7 @@ require_once('php/db_con.php');
 
                             </div>
                         </div>
-                        <div class="text-center my-4">
+                        <div class=" my-4">
                             <label class="avatar avatar-xxl profile-cover-avatar" for="avatar_upload">
                                 <img class="avatar-img" src="assets/img/avatar.jpg" alt="Profile Image">
                                 <input type="file" id="avatar_upload">
@@ -110,106 +112,77 @@ require_once('php/db_con.php');
                                     <i class="feather-edit-2 avatar-uploader-icon shadow-soft"></i>
                                 </span>
                             </label>
-                            <h2>Hritik Kanojiya <i class="fas fa-certificate text-primary small" data-toggle="tooltip" data-placement="top" title="" data-original-title="Verified"></i></h2>
+                            <div class="text-center">
+                                <h2><?php echo $sql_result_array['User_Name'] ?><i class="fas fa-certificate text-primary small" data-toggle="tooltip" data-placement="top" title="" data-original-title="Verified"></i></h2>
+                            </div>
 
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+                                    <div class="card mb-0">
+                                        <div class="card-header">
+                                            <h5 class="card-title d-flex justify-content-between">
+                                                <span>Profile</span>
+                                            </h5>
+                                        </div>
+                                        <div>
+                                            <div class="card-body pb-3">
+                                                <div class="row mb-2">
+                                                    <div class="col-12">
+                                                        <label class="form-label" for="User_Name">Full Name</label>
+                                                        <input type="text" class="form-control" id="User_Name" name="User_Name" value="<?php echo $sql_result_array['User_Name'] ?>" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="Email_Id">Email Id</label>
+                                                        <input type="email" class="form-control" id="Email_Id" name="Email_Id" value="<?php echo $sql_result_array['Email_Id'] ?>" readonly>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="Contact_Number">Contact Number</label>
+                                                        <input type="number" class="form-control" id="Contact_Number" name="Contact_Number" value="<?php echo $sql_result_array['Contact_Number'] ?>" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="Monthly_Inc">MonthlyInc</label>
+                                                        <input type="number" class="form-control" id="Monthly_Inc" name="Monthly_Inc" value="<?php echo $sql_result_array['Monthly_Inc'] ?>" readonly>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="Currency">Currency</label>
+                                                        <input type="text" class="form-control" id="Currency" name="Currency" value="<?php echo $sql_result_array['Currency'] ?>" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-end text-right mt-2">
+                                                    <div class="col-4 mt-2">
+                                                        <a href="update.php"><button type="submit" class="btn btn-primary">Edit Profile</button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
+
+
+
+
             </div>
-        </div>
 
 
-        <div class="notifications">
-            <div class="topnav-dropdown-header">
-                <span class="notification-title">Notifications</span>
-                <a href="javascript:void(0)" class="clear-noti"> <i class="feather-x-circle"></i> </a>
-            </div>
-            <div class="noti-content">
-                <ul class="notification-list">
-                    <li class="notification-message">
-                        <a href="#">
-                            <div class="media">
-                                <span class="avatar">
-                                    <img alt="" src="assets/img/profiles/avatar-02.jpg" class="rounded-circle">
-                                </span>
-                                <div class="media-body">
-                                    <p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
-                                    <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="notification-message">
-                        <a href="#">
-                            <div class="media">
-                                <span class="avatar">
-                                    <img alt="" src="assets/img/profiles/avatar-03.jpg" class="rounded-circle">
-                                </span>
-                                <div class="media-body">
-                                    <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
-                                    <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="notification-message">
-                        <a href="#">
-                            <div class="media">
-                                <span class="avatar">
-                                    <img alt="" src="assets/img/profiles/avatar-06.jpg" class="rounded-circle">
-                                </span>
-                                <div class="media-body">
-                                    <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
-                                    <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="notification-message">
-                        <a href="#">
-                            <div class="media">
-                                <span class="avatar">
-                                    <img alt="" src="assets/img/profiles/avatar-17.jpg" class="rounded-circle">
-                                </span>
-                                <div class="media-body">
-                                    <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
-                                    <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="notification-message">
-                        <a href="#">
-                            <div class="media">
-                                <span class="avatar">
-                                    <img alt="" src="assets/img/profiles/avatar-13.jpg" class="rounded-circle">
-                                </span>
-                                <div class="media-body">
-                                    <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
-                                    <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="topnav-dropdown-footer">
-                <a href="javascript:void(0);">View all Notifications</a>
-            </div>
-        </div>
+            <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+            <script src="assets/js/jquery-3.6.0.min.js"></script>
 
-    </div>
+            <script src="assets/js/bootstrap.bundle.min.js"></script>
 
+            <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <script src="assets/js/script.js"></script>
+            <script src="assets/js/script.js"></script>
 </body>
 
 </html>

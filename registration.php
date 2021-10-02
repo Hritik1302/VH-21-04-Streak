@@ -1,4 +1,3 @@
-<?php require_once 'php/auth_session.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -135,9 +134,14 @@
                             Swal.fire({
                                 title: 'You have succecssfully registered!',
                                 icon: 'success',
-                                showConfirmButton: false,
+                                showConfirmButton: true,
+                                confirmButtonText: 'Click here to Login',
                                 allowOutsideClick: false,
                                 allowEscapeKey: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.open('index.php','_parent');
+                                }
                             })
                         } else {
                             Swal.fire(

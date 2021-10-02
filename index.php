@@ -6,7 +6,7 @@ if (isset($_SESSION['Users_Id'])) {
 }
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $pass = $_POST['pass'];
+    $pass = md5($_POST['pass']);
     $query = mysqli_query($conn, "SELECT * FROM `masters_users` WHERE `Email_Id` = '$email' AND `Password` = '$pass'");
     $query_result = mysqli_num_rows($query);
     if ($query_result == 1) {
@@ -72,7 +72,8 @@ if (isset($_POST['login'])) {
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/script.js"></script>
 
     <script>
@@ -88,10 +89,10 @@ if (isset($_POST['login'])) {
                 email: {
                     required: true,
                     email: true,
-                    remote: {
-                        url: 'php/ajax/check-email.php',
-                        type: "post",
-                    }
+                    // remote: {
+                    //     url: 'php/ajax/check-email.php',
+                    //     type: "post",
+                    // }
                 }
             },
             messages: {

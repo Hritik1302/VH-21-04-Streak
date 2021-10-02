@@ -1,4 +1,4 @@
-<?php require_once 'php/auth_session.php'?>
+<?php require_once 'php/auth_session.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +36,7 @@
             padding: 20px;
             border-radius: 10px;
             /*border: 0.5px solid rgba(130, 130, 130, 0.25);*/
-            /*box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 
+            /*box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1),
               0 0 0 1px rgba(0, 0, 0, 0.1);*/
         }
 
@@ -261,6 +261,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $('document').ready(function() {
@@ -281,64 +282,76 @@
         })
 
         $("#submit_manually").on('click', function(e) {
-                e.preventDefault();
-                if ($("#manual-form").valid()) {
-                    var form = $('form');
-                    var url = 'php/ajax/add.php';
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: form.serialize(),
-                        success: function(data) {
-                            if (data == 200) {
-                                Swal.fire(
-                                    'You have succesfully registered!',
-                                    'Login you in',
-                                    'success'
-                                )
-                            } else {
-                                Swal.fire(
-                                    'Something went wrong!',
-                                    'Try again later',
-                                    'error'
-                                )
-                            }
+            e.preventDefault();
+            if ($("#manual-form").valid()) {
+                var form = $('form');
+                var url = 'php/ajax/add.php';
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(),
+                    success: function(data) {
+                        if (data == 200) {
+                            Swal.fire({
+                                title: 'Bill Added succesfully',
+                                icon: 'success',
+                                showCancelButton: true,
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                cancelButtonText: 'View Insights',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#3085d6',
+                                confirmButtonText: 'Add another',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'add.php';
+                                } else if (result.isDismissed) {
+                                    window.location.href = 'dashboard.php';
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Something went wrong!',
+                                'Try again later',
+                                'error'
+                            )
                         }
-                    });
-                }
-            });
+                    }
+                });
+            }
+        });
 
-            $("#manual-form").validate({
-                rules: {
-                    bill_date: {
-                        required: true,
-                    },
-                    category: {
-                        required: true,
-                    },
-                    amount: {
-                        required: true,
-                        digits: true
-                    },
-                    curreny: {
-                        required: true,
-                    }
+        $("#manual-form").validate({
+            rules: {
+                bill_date: {
+                    required: true,
                 },
-                messages: {
-                    bill_date: {
-                        required: "Enter Proper Bill Date",
-                    },
-                    category: {
-                        required: "Please Select a Category",
-                    },
-                    amount: {
-                        required: "Please Enter a valid Amount",
-                    },
-                    curreny: {
-                        required: "Please Enter a valid Currency",
-                    }
+                category: {
+                    required: true,
+                },
+                amount: {
+                    required: true,
+                    digits: true
+                },
+                curreny: {
+                    required: true,
                 }
-            });
+            },
+            messages: {
+                bill_date: {
+                    required: "Enter Proper Bill Date",
+                },
+                category: {
+                    required: "Please Select a Category",
+                },
+                amount: {
+                    required: "Please Enter a valid Amount",
+                },
+                curreny: {
+                    required: "Please Enter a valid Currency",
+                }
+            }
+        });
     </script>
 </body>
 

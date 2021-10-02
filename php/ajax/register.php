@@ -1,13 +1,13 @@
 <?php
-if (!isset($_SESSION["Users_Id"])) {
-    header("Location: index.php");
-    exit();
-}
+// if (isset($_SESSION["Users_Id"])) {
+//     header("Location: index.php");
+//     exit();
+// }
 require_once '../db_con.php';
 $name = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
-$pass = $_POST['pass'];
+$pass = md5($_POST['pass']);
 $monthly_income = $_POST['monthly_income'];
 $currency = $_POST['currency'];
 $deleted = 1;

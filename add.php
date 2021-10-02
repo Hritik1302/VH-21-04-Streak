@@ -213,7 +213,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <?php
-                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=1b0c7e70102baa555ea9';
+                                            $url = 'https://free.currconv.com/api/v7/currencies?apiKey=8bfa59c615ffe94939f9';
                                             $fetch = file_get_contents($url);
                                             $data = json_decode($fetch);
                                             ?>

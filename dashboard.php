@@ -6,7 +6,7 @@ $query = mysqli_query($conn, "SELECT * FROM `category_list` WHERE `User_Id` = '$
 $prefercurrency = '';
 function convertCurrency($amount, $from_currency, $to_currency)
 {
-    $apikey = '1b0c7e70102baa555ea9';
+    $apikey = '42a03541b8065eeb72fa';
     $from_Currency = urlencode($from_currency);
     $to_Currency = urlencode($to_currency);
     $queryfun =  "{$from_Currency}_{$to_Currency}";
@@ -302,7 +302,7 @@ while ($row4 = mysqli_fetch_array($query4)) {
                     var currentAmount = parseFloat(amountArray[index]);
                     var currentName = valuesArray[index];
                     var percent = parseInt((currentAmount / total) * 100);
-                    var message = percent + '% spent on' + currentName + '<br>';
+                    var message = percent + '% spent on ' + currentName + '<br>';
 
                     var message = "<li class='feed-item'><span class='feed-text'>"+percent + '% spent on' + currentName+"</span></li>";
                     $('.pie_chart_message').append(message);

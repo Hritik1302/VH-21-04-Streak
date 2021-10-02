@@ -22,11 +22,18 @@ while ($row3 = mysqli_fetch_array($query3)) {
     $prefercurrency = $row3['Currency'];
 }
 
+$prefercurrency = 'INR';
+
 $query4 = mysqli_query($conn, "SELECT `Bill_Amount`,`Currency` FROM bill_data WHERE Bill_Date > (NOW() - INTERVAL 1 MONTH) AND `User_Id` = '$Users_id'");
 $total = 0;
 while ($row4 = mysqli_fetch_array($query4)) {
-    $amount = convertCurrency($row4['Bill_Amount'], $row4['Currency'], $prefercurrency);
-    $total = $amount + $total;
+    // $amount = convertCurrency($row4['Bill_Amount'], $row4['Currency'], $prefercurrency);
+    $total = $row4['Bill_Amount'] + $total;
+}
+
+$total_income = mysqli_query($conn, "SELECT `Monthly_Inc` FROM `masters_profile` WHERE `Users_Id` = '$Users_Id'");
+while ($row5 = mysqli_fetch_array($total_income)){
+    $tincome = $row5['Monthly_Inc'];
 }
 
 ?>
@@ -59,6 +66,7 @@ while ($row4 = mysqli_fetch_array($query4)) {
 <body>
     <div class="main-wrapper">
         <div class="header">
+            <?php $tincome = '12000';?>
             <div class="row">
                 <div class="col-md-3">
                     <div class="message pl-3 pt-3" style="font-size: 1.5rem;font-weight: 600;">
@@ -112,9 +120,6 @@ while ($row4 = mysqli_fetch_array($query4)) {
                                 </div>
                                 <h4 class="text-white">Total Amount Spent in Last Month</h4>
                                 <h2 class="text-white"><?= $total . ' ' . $prefercurrency ?></h2>
-                                <div class="growth-indicator">
-                                    <span class="text-white"><i class="fas fa-angle-double-down mr-1"></i> (4.78%)</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,9 +133,6 @@ while ($row4 = mysqli_fetch_array($query4)) {
                                 </div>
                                 <h4 class="text-white">Category Count</h4>
                                 <h2 class="text-white">5</h2>
-                                <div class="growth-indicator">
-                                    <span class="text-white"><i class="fas fa-angle-double-up mr-1"></i> (18.32%)</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,10 +145,7 @@ while ($row4 = mysqli_fetch_array($query4)) {
                                     <img src="assets/img/icons/operating.svg" alt="" width="26">
                                 </div>
                                 <h4 class="text-white">Total Income</h4>
-                                <h2 class="text-white">10000</h2>
-                                <div class="growth-indicator">
-                                    <span class="text-white"><i class="fas fa-angle-double-down mr-1"></i> (25.14%)</span>
-                                </div>
+                                <h2 class="text-white"><?= $tincome?></h2>
                             </div>
                         </div>
                     </div>
@@ -168,9 +167,9 @@ while ($row4 = mysqli_fetch_array($query4)) {
                                 </div>';
                     $query2 = mysqli_query($conn, "SELECT * FROM `bill_data` WHERE `User_Id` = '$_SESSION[Users_Id]' AND `Bill_Category` = '$row[Category]'");
                     while ($row2 = mysqli_fetch_array($query2)) {
-                        $conversion = convertCurrency($row2['Bill_Amount'], $row2['Currency'], $prefercurrency);
+                        // $conversion = convertCurrency($row2['Bill_Amount'], $row2['Currency'], $prefercurrency);
 
-                        $html .= '<input type="hidden" value="' . $conversion . '" name="' . $row['Category'] . '">';
+                        $html .= '<input type="hidden" value="' . $row2['Bill_Amount'] . '" name="' . $row['Category'] . '">';
                     }
                 }
                 $html .= '</div></div></div>';

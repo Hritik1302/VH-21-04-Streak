@@ -236,7 +236,7 @@ error_reporting(0);?>
                     <div class="col-md-5 p-4" style="background: white;border-radius: 25px;">
                         <div class="login-right-wrap">
                             <h1 class="text-center">Upload your Bill <small style="font-size:15px">BETA</small> </h1>
-                            <form>
+                            <form action="check.php" enctype="multipart/form-data" method="POST">
                                 <div class="wrapper">
                                     <div class="container">
                                         <div class="upload-container">
@@ -246,7 +246,7 @@ error_reporting(0);?>
                                                     <i class="fas fa-file-alt" data-fa-transform="shrink-2 up-4"></i>
                                                     <i class="fas fa-file-pdf" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
                                                 </div>
-                                                <input type="file" id="file-upload" style="opacity: 0;">
+                                                <input type="file" name="image" accept="image/*" class="form-control" id="file-upload" style="opacity: 0;">
                                                 <p>Drag and drop files here, or
                                                     <a href="#" id="file-browser">browse</a> your computer.
                                                 </p>
